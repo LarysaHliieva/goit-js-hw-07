@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-// console.log(galleryItems);
-
 const galleryContainer = document.querySelector(".gallery");
 const galleryMarkup = createGalleryMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
@@ -37,6 +35,37 @@ function onImageClick(e) {
         return;
     }
 
-    console.log(e.target.dataset.sorce);
+  let srcImg = e.target.dataset.sorce;
+  
+  const instance =  basicLightbox.create(`
+        <div class="modal">
+            <img
+                src='${srcImg}'
+            />
+        </div>
+    `)
+
+  instance.show();
+  
+  window.addEventListener("keydown", onEscKeyPress);
+
+  function onEscKeyPress(e) {
+    if (e.code !== "Escape") {
+      return;
+    }
+
+    window.removeEventListener("keydown", onEscKeyPress);
+    instance.close();
+  }
 }
+
+
+
+
+
+
+
+
+
+
 
